@@ -89,11 +89,7 @@ export const getWorkerTasks = async (req, res) => {
 
 const Map_Link = (array, Userlng, Userlat) => {
   const CurrentLocation = `${Userlat},${Userlng}`;
-
   let locofBinsString = "";
-
-  //array.push({ lat: Userlat, lng: Userlng });
-
   array.forEach((bin, index) => {
     {
       index === array.length - 1
@@ -103,22 +99,14 @@ const Map_Link = (array, Userlng, Userlat) => {
         : (locofBinsString += `|${bin.lat},${bin.lng}`);
     }
   });
-
-
-
-  // array.pop();
   return `https://www.google.com/maps/embed/v1/directions?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&origin=${CurrentLocation}&mode=driving&${locofBinsString}`; // ${markersString}`
 };
-
-
 
 const Map_Link3 = (array) => {
   
 
   let locofBinsString = "";
 
-  //array.push({ lat: Userlat, lng: Userlng });
-
   array.forEach((bin, index) => {
     {
       index === array.length - 1
@@ -129,15 +117,8 @@ const Map_Link3 = (array) => {
     }
   });
 
-
-
-  // array.pop();
   return `https://www.google.com/maps/dir/?api=1&origin=&${locofBinsString}`; // ${markersString}`
 };
-
-          //https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination=26.315738,50.163780&waypoints=26.312738,50.161780|26.318738,50.169780
-// generate a sorting array depends on the langtude and latitude of the bins and current location of the worker
-// the sorting array will be used to sort the bins in the order of the distance from the worker
 
 const generateSortingArray1 = async (array, current) => {
   if (array.length == 0) return array;
@@ -170,7 +151,6 @@ const Map_Link2 = (array, Userlng, Userlat) => {
     }
   });
 
-  // array.pop();
   return `https://maps.googleapis.com/maps/api/directions/json?origin=${CurrentLocation}&destination=${CurrentLocation}&waypoints=optimize:true${locofBinsString}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
 };
 
@@ -196,7 +176,3 @@ export const setCompleteTask = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-
-
-
-//https://www.google.com/maps/dir/?api=1&origin=&destination=26.315738,50.163780&waypoints=26.312738,50.161780|26.318738,50.169780
