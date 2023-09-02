@@ -5,35 +5,22 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
-// Imports js 
 import generalRoutes from "./general.js"
 import APIRoutes from "./API.js"
-
 import https from 'https';
 import fs from 'fs';
 
 
 
-//User Scheme imports 
-
-// import User from "./models/User.js";
-// import Bins from './models/Bins.js';
-// import Task from "./models/Task.js";
-// import Counter from "./models/Counter.js";
-// import {Workers} from "./data/mockData.js"
-
-
 /* Cetificate */
 const httpsOptions = {
-    key: fs.readFileSync('/etc/letsencrypt/live/wms-kfupm.com/privkey.pem'), 
-    cert: fs.readFileSync('/etc/letsencrypt/live/wms-kfupm.com/fullchain.pem')
+    key: fs.readFileSync(process.env.httpsprivkey ), 
+    cert: fs.readFileSync(process.env.httpsfullchain)
   };
 
 /* Configuration */
-
-
 const corsOptions = {
-    origin: '*', // Replace with the actual origin of your frontend
+    origin: process.env.FrontEndURL,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
     credentials: true,
@@ -67,15 +54,7 @@ mongoose.connect(process.env.MONGO_URL , {
     useUnifiedTopology: true,
 
 }).then(() => {
-    // app.listen(PORT , ()=> (console.log(`Server Port: ${PORT}`)));
+   // app.listen(PORT , ()=> (console.log(`Server Port: ${PORT}`)));
 
     https.createServer(httpsOptions, app).listen(PORT, () => { console.log(`Server Port: ${PORT}`)});
-
-    // User.insertMany(Workers);
-    // Bins.insertMany(BINS2);
-    // Task.insertMany(Tasks1111);
-    // Counter.insertMany([{_id : "Task_id" , seq : 21}])
-
-    
-
 }).catch((error) => console.log(`${error} Didn't Connect`))
