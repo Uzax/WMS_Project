@@ -36,28 +36,4 @@ router.get("/alltasks/:id" , getAllTasks);
 // Statics Dashboards
 router.get("/StaticsAdmin" , adminStatics)
 
-
-
-
-
-
-// For testing purposes only , It will be removed later . it update all the tasks of a worker to 0
-router.post("/TestUpdateall"    , async (req,res) => {
-    try {
-        const by = req.body.by
-    const UpdatedTask = await Task.updateMany(
-        { Worker_id: by },
-        { $set: { Status: 0 } }
-      );
-
-        res.status(200).json(UpdatedTask)
-    } catch (error) {
-        res.sendStatus(404).json({message : error.message})
-    }
-})
-
-
-
-
-
 export default router;
